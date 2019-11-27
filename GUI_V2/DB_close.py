@@ -31,3 +31,4 @@ for row in rows:
         conn_item.close()
         print("OK")
 conn.close()
+subprocess.call('python camera.py' ,shell=True)

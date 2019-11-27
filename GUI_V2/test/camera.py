@@ -5,9 +5,7 @@ from time import sleep
 from datetime import datetime  #date
 import smtplib    #mail
 from email.mime.text import MIMEText
-from email.mime.image import MIMEImage
-import mimetypes
-from email.mime.base import MIMEBase
+
 
 now = datetime.now()
 print(now)
@@ -22,13 +20,9 @@ smtp = smtplib.SMTP('smtp.gmail.com', 587)
 smtp.ehlo()      # say Hello
 smtp.starttls() 
 smtp.login('jeonghun695@gmail.com', 'projectnum1!')
-msg=MIMEBase("multipart","mixed")
-msg['subject']= "냉장고 사용 {}".format(now)
-imageFD=open("{}.jpg".format(now),'rb')
-ImagePart=MIMEImage(imageFD.read())
-imageFD.close()
-msg.attach(ImagePart)
-# 헤더에 첨부 파일에 대한 정보 추가
-msg.add_header('Content-Disposition', 'attachment', filename='test')
+msg = MIMEText("{}".format(now))
+msg['Subject'] = '냉장고 사용'
+msg['To'] = 'jeonghun695@gmail.com'
+filename='{}.jpg'.format(now)
 smtp.sendmail('jeonghun695@gmail.com', 'jeonghun695@gmail.com', msg.as_string())
 smtp.quit()

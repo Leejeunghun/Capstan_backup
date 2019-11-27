@@ -1,12 +1,12 @@
 import pymysql
 import sys
 import subprocess #GPIO control
-
+from tkinter import messagebox
 from datetime import datetime
 now = datetime.now() # current date and time
 date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
 
-
+check=0
 # MySQL Connection 연결
 conn = pymysql.connect(host='localhost', user='root', password='qwer123',db='esebird', charset='utf8')
  
@@ -29,5 +29,8 @@ for row in rows:
         curs_item.execute(sql_item,(row[1],'Open',date_time))
         conn_item.commit()
         conn_item.close()
+        check=1
         print("OK")
+if check==0:
+    messagebox.showinfo("Error", "등록되지 않은 사용자입니다.")
 conn.close()
